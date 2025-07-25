@@ -1,3 +1,4 @@
+import os
 import json
 import random
 import nltk
@@ -182,4 +183,6 @@ def index():
 
 if __name__ == "__main__":
     print("Iniciando ZenBot API...")
-    app.run(debug=True, port=5000)
+    # Usa el puerto provisto por el entorno o 5000 por defecto (para desarrollo local)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
