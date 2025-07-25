@@ -15,19 +15,10 @@ import joblib
 # --- NLTK y Lematización ---
 lemmatizer = WordNetLemmatizer()
 
-print("Verificando y descargando datos de NLTK...")
-try:
-    nltk.data.find('corpora/punkt')
-except nltk.downloader.DownloadError:
-    nltk.download('punkt')
-try:
-    nltk.data.find('corpora/wordnet')
-except nltk.downloader.DownloadError:
-    nltk.download('wordnet')
-try:
-    nltk.data.find('corpora/omw-1.4') # Open Multilingual Wordnet (para español)
-except nltk.downloader.DownloadError:
-    nltk.download('omw-1.4')
+print("Descargando/Verificando datos de NLTK: punkt, wordnet, omw-1.4...")
+nltk.download('punkt', quiet=True) # quiet=True para menos mensajes en la consola
+nltk.download('wordnet', quiet=True)
+nltk.download('omw-1.4', quiet=True) # Open Multilingual Wordnet (para español)
 print("Datos de NLTK listos.")
 
 def load_intents(file_path='intents.json'):
