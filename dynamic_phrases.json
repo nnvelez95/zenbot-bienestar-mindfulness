@@ -1,0 +1,11 @@
+{
+  "emociones_negativas": ["estrés", "ansiedad", "preocupación", "miedo", "tensión", "duda"],
+  "acciones_bienestar": ["respira", "suelta", "encuentra", "abraza", "libera", "observa"],
+  "conceptos_positivos": ["calma", "paz", "serenidad", "luz", "momento", "ahora", "descanso", "fuerza"],
+  "elementos_naturales": ["viento", "río", "sol", "cielo", "tierra", "mar"],
+  "estructuras_frase": [
+    "En [conceptos_positivos], tu [elementos_naturales] guía. [acciones_bienestar] el [conceptos_positivos].",
+    "Que la [conceptos_positivos] fluya como un [elementos_naturales]. [acciones_bienestar] tu [emociones_negativas].",
+    "Permite que la [conceptos_positivos] te envuelva. [acciones_bienestar] en el [conceptos_positivos]."
+  ]
+}

@@ -23,6 +23,50 @@ def load_intents(file_path='intents.json'):
         print(f"Error: El archivo {file_path} no se encontró. Asegúrate de que esté en la misma carpeta.")
         return {"intents": []}
 
+### NUEVAS ADICIONES PARA GENERACIÓN DINÁMICA ###
+def load_dynamic_phrases(file_path='dynamic_phrases.json'):
+    """Carga las frases y categorías para la generación dinámica."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print(f"Error: El archivo {file_path} no se encontró. La generación dinámica no funcionará.")
+        return {} # Retorna un diccionario vacío si no se encuentra
+
+dynamic_phrases_data = load_dynamic_phrases()
+
+def generate_dynamic_response(dynamic_data, context_tag=None):
+    """
+    Genera una respuesta dinámica combinando estructuras y palabras clave.
+    context_tag puede usarse para influir en la selección si es necesario (futuro).
+    """
+    if not dynamic_data or not dynamic_data.get('estructuras_frase'):
+        return "Lo siento, no puedo generar una reflexión en este momento."
+
+    # Seleccionar una estructura de frase al azar
+    structure = random.choice(dynamic_data['estructuras_frase'])
+    
+    # Reemplazar los marcadores de posición con palabras aleatorias de las categorías
+    response = structure
+    
+    # Usar expresiones regulares para encontrar todos los marcadores [categoria]
+    placeholders = re.findall(r'\[(\w+)\]', response)
+    
+    for placeholder_category in placeholders:
+        if placeholder_category in dynamic_data:
+            # Seleccionar una palabra al azar de la categoría correspondiente
+            chosen_word = random.choice(dynamic_data[placeholder_category])
+            # Reemplazar SOLO la primera ocurrencia para evitar reemplazar múltiples veces la misma categoría
+            response = response.replace(f'[{placeholder_category}]', chosen_word, 1)
+        else:
+            # Si la categoría no existe, reemplazar con un marcador de error o vacío
+            response = response.replace(f'[{placeholder_category}]', '[DESCONOCIDO]', 1)
+
+    return response
+
+### FIN NUEVAS ADICIONES ###
+
+
 def preprocess_text(text):
     """Limpia y lematiza el texto de entrada."""
     text = text.lower()
@@ -68,44 +112,34 @@ except FileNotFoundError:
         classifier_pipeline = None
 
 # --- Variable global para el contexto de la conversación ---
-# Guarda el estado de la conversación para la sesión actual.
-# 'awaiting_specific_response': Indica si el bot espera una respuesta particular a una pregunta anterior.
-# Por ejemplo, 'respiracion_pregunta' si el bot acaba de preguntar si el usuario quiere un ejercicio de respiración.
 current_conversation_state = {"awaiting_specific_response": None}
 
-# --- Función para obtener respuesta (ahora usa contexto) ---
+# --- Función para obtener respuesta (ahora usa contexto y generación dinámica) ---
 def get_response(user_input, intents, classifier_pipeline):
-    global current_conversation_state # Accede a la variable global
+    global current_conversation_state
 
     processed_input = preprocess_text(user_input)
     predicted_tag = None
 
     if classifier_pipeline:
-        # Primero, intentar predecir la intención general del usuario
         predicted_tag = classifier_pipeline.predict([processed_input])[0]
     else:
-        # Esto solo debería pasar si el modelo no se cargó/entrenó correctamente
         return "Lo siento, el modelo del chatbot no está disponible. Por favor, revisa la configuración."
 
     # --- Lógica de Gestión de Contexto ---
-
-    # 1. Evaluar si se está respondiendo a una pregunta específica
     if current_conversation_state["awaiting_specific_response"] == "respiracion_pregunta":
-        if predicted_tag == "afirmacion": # Si el usuario dijo "sí", "claro", etc.
-            current_conversation_state["awaiting_specific_response"] = None # Limpiar el estado
-            # Retorna la respuesta del ejercicio de respiración
+        if predicted_tag == "afirmacion":
+            current_conversation_state["awaiting_specific_response"] = None
             return random.choice(next(item for item in intents['intents'] if item["tag"] == "ejercicio_respiracion_solicitud")['responses'])
-        elif predicted_tag == "negacion": # Si el usuario dijo "no", "nada", etc.
-            current_conversation_state["awaiting_specific_response"] = None # Limpiar el estado
+        elif predicted_tag == "negacion":
+            current_conversation_state["awaiting_specific_response"] = None
             return random.choice(next(item for item in intents['intents'] if item["tag"] == "negacion")['responses'])
-        # Si no es una afirmación ni negación, podría ser una nueva pregunta o un cambio de tema.
-        # En este caso, dejaremos que el flujo normal continúe, pero podríamos añadir más lógica.
-        current_conversation_state["awaiting_specific_response"] = None # Resetear el estado si no fue una respuesta directa
+        current_conversation_state["awaiting_specific_response"] = None
 
-    # 2. Establecer contexto si la intención predicha lo requiere
-    # Si el bot acaba de preguntar sobre el estrés, establecerá el contexto para la próxima interacción
-    if predicted_tag == "estado_estresado":
-        # Buscamos la intención para obtener la respuesta. Esta respuesta debería terminar con una pregunta.
+    # --- Lógica de Generación Dinámica ---
+    # Si la intención es de estrés, o si quieres una "reflexión" general
+    if predicted_tag == "estado_estresado": # Puedes añadir más tags aquí, como "busqueda_calma" si la creas
+        # Primero, damos una respuesta predefinida que establece el contexto
         response_options = next(item for item in intents['intents'] if item["tag"] == "estado_estresado")['responses']
         chosen_response = random.choice(response_options)
         
@@ -115,23 +149,23 @@ def get_response(user_input, intents, classifier_pipeline):
         else:
              current_conversation_state["awaiting_specific_response"] = None # Limpiar si no es una pregunta de seguimiento
 
-        return chosen_response
+        # Después de la respuesta predefinida, añadir una frase dinámica para un toque extra
+        dynamic_phrase = generate_dynamic_response(dynamic_phrases_data, predicted_tag)
+        return chosen_response + "<br><br>" + dynamic_phrase # Combina la respuesta y la frase dinámica
     
-    # 3. Respuestas normales basadas en la intención predicha (si no hay contexto activo o no se aplicó)
-    # Para cualquier otra intención, simplemente buscamos la respuesta.
+    # --- Respuestas normales basadas en la intención predicha ---
     for intent in intents['intents']:
         if intent['tag'] == predicted_tag:
-            current_conversation_state["awaiting_specific_response"] = None # Limpiar el contexto si la nueva intención no requiere seguimiento
+            current_conversation_state["awaiting_specific_response"] = None
             return random.choice(intent['responses'])
             
-    # Último recurso si no se encuentra la intención (raro con el clasificador entrenado)
     current_conversation_state["awaiting_specific_response"] = None
     return "Lo siento, no estoy seguro de cómo responder a eso. ¿Podrías reformularlo o preguntarme algo diferente sobre bienestar?"
 
 
 # --- Configuración de Flask ---
 app = Flask(__name__)
-CORS(app) # Habilita CORS para todas las rutas
+CORS(app)
 
 @app.route('/chat', methods=['POST'])
 def chat():
