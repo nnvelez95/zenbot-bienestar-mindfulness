@@ -167,11 +167,20 @@ def get_response(user_input, intents, classifier_pipeline):
 # --- Configuración de Flask ---
 app = Flask(__name__)
 allowed_origins = [
-    "http://localhost:8000", # Para probar localmente con python -m http.server
-    "https://nnvelez95.github.io" # <--- ¡TU URL DE GITHUB PAGES EXACTA!
-    "https://nnvelez95.github.io/zenbot-bienestar-mindfulness" # URL de tu GitHub Pages
+    "http://localhost:8000", # Para pruebas locales con python -m http.server
+    "https://nnvelez95.github.io", # <--- ¡TU URL DE GITHUB PAGES EXACTA!
+    "https://nnvelez95.github.io/zenbot-bienestar-mindfulness" # <--- ¡AÑADE ESTA SI TU URL DE PAGES INCLUYE EL REPO!
 ]
-CORS(app, origins=allowed_origins, supports_credentials=True, methods=["GET", "POST", "OPTIONS"], allow_headers=["Content-Type", "Authorization"])
+
+# Aplica CORS a TODAS las rutas ("/*") con los orígenes permitidos,
+# y permite explícitamente los métodos POST y OPTIONS.
+CORS(app, resources={r"/*": {"origins": allowed_origins, "methods": ["GET", "POST", "OPTIONS"], "allow_headers": ["Content-Type", "Authorization"]}})
+
+# Opcional: Una ruta OPTIONS explícita para asegurar que los encabezados se envíen.
+# Flask-CORS debería hacerlo automáticamente, pero a veces ayuda a depurar.
+@app.route('/chat', methods=['OPTIONS'])
+def handle_options():
+    return '', 200 # Responde con un 200 OK para la solicitud OPTIONS
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -188,6 +197,5 @@ def index():
 
 if __name__ == "__main__":
     print("Iniciando ZenBot API...")
-    # Usa el puerto provisto por el entorno o 5000 por defecto (para desarrollo local)
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
