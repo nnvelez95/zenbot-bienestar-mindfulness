@@ -166,9 +166,12 @@ def get_response(user_input, intents, classifier_pipeline):
 
 # --- Configuración de Flask ---
 app = Flask(__name__)
-CORS(app)
-github_pages_origin = "https://nnvelez95.github.io/zenbot-bienestar-mindfulness"
-CORS(app, resources={r"/chat": {"origins": github_pages_origin}})
+allowed_origins = [
+    "http://localhost:8000", # Para probar localmente con python -m http.server
+    "https://nnvelez95.github.io" # <--- ¡TU URL DE GITHUB PAGES EXACTA!
+    "https://nnvelez95.github.io/zenbot-bienestar-mindfulness" # URL de tu GitHub Pages
+]
+CORS(app, origins=allowed_origins, supports_credentials=True, methods=["GET", "POST", "OPTIONS"], allow_headers=["Content-Type", "Authorization"])
 
 @app.route('/chat', methods=['POST'])
 def chat():
