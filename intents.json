@@ -84,9 +84,39 @@
         "Entendido. ¿Quizás otra opción te interese?",
         "Vale, no hay problema."
       ]
+    },
+    {
+      "tag": "conversacion_abierta",
+      "patterns": [
+        "háblame de filosofía",
+        "qué piensas sobre la mente",
+        "cuál es el sentido de la vida",
+        "hablemos de psicología",
+        "quiero conversar",
+        "tengo una pregunta filosófica",
+        "qué es la conciencia",
+        "háblame de emociones",
+        "quiero charlar de algo profundo",
+        "necesito un compañero de conversación",
+        "qué es la felicidad",
+        "qué es el amor",
+        "háblame de existencialismo",
+        "qué es el inconsciente"
+      ],
+      "responses": [
+        "¡Claro! Me encanta explorar temas profundos. ¿Sobre qué aspecto de la filosofía o la psicología te gustaría conversar?",
+        "Estoy listo para una conversación significativa. ¿Qué idea o concepto te intriga hoy?",
+        "Excelente. Los temas de la mente y la existencia son fascinantes. Dime, ¿qué tienes en mente?",
+        "Me parece una gran idea. ¿Por dónde te gustaría que empecemos nuestra reflexión?"
+      ]
+    },
+    {
+      "tag": "respuesta_llm",
+      "patterns": [],
+      "responses": []
     }
   ],
-  "version": "1.0",
+  "version": "2.0",
   "description": "Intents for ZenBot, a mindfulness and wellness chatbot.",
   "author": "ZenBot Team",
   "date_created": "2025-8-25",
