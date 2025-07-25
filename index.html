@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Proyecto: Chatbot de Bienestar y Mindfulness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Serene Green -->
+    <!-- Application Structure Plan: Se ha diseñado una SPA con una estructura de "dashboard" o centro de control. La navegación superior permite saltar a secciones clave: 'Concepto', 'Funcionalidades (MVP)', 'Flujo de Conversación' y 'Visión a Futuro'. Esta estructura se eligió para permitir una exploración no lineal. Un reclutador puede ir directamente a la sección que más le interese (ej. el flujo técnico) o seguir el recorrido lógico. El objetivo es presentar la información del plan de forma digerible e interactiva, simulando la exploración de un producto real en lugar de leer un documento. La sección de flujo de conversación es interactiva para demostrar de forma práctica el diseño de la UX del chatbot. -->
+    <!-- Visualization & Content Choices: 
+        - Concepto: Tarjetas informativas (HTML/Tailwind) para destacar propósito, objetivos y público. Objetivo: Informar. Interacción: Ninguna, solo lectura. Justificación: Claridad y separación de conceptos.
+        - Funcionalidades MVP: Una cuadrícula de tarjetas interactivas (HTML/Tailwind/JS). Objetivo: Organizar y detallar. Interacción: Clic para revelar más detalles de cada funcionalidad. Justificación: Permite al usuario enfocarse en una característica a la vez, evitando sobrecarga de información.
+        - Flujo de Conversación: Ahora es una interfaz de chat real con entrada de texto y botón de enviar, conectada a un backend Python. Objetivo: Demostrar la interacción real del chatbot. Interacción: Escribir y enviar mensajes, recibir respuestas dinámicas. Justificación: Proporciona una experiencia práctica del chatbot, mucho más inmersiva que un diagrama estático.
+        - Visión a Futuro: Lista estilizada. Objetivo: Informar. Justificación: Presentación simple y directa para ideas futuras.
+        - Habilidades: Lista de etiquetas (tags). Objetivo: Informar. Justificación: Formato visualmente atractivo y rápido de escanear para reclutadores.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8; /* Warm Neutral - Main Background */
+            color: #4A4A4A;
+        }
+        .bg-primary { background-color: #FDFBF8; }
+        .bg-secondary { background-color: #FFFFFF; }
+        .bg-accent { background-color: #A3B18A; } /* Serene Green */
+        .text-accent { color: #A3B18A; }
+        .border-accent { border-color: #A3B18A; }
+        .btn-accent {
+            background-color: #A3B18A;
+            color: #FFFFFF;
+            transition: background-color 0.3s ease;
+        }
+        .btn-accent:hover {
+            background-color: #8D9A75;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #A3B18A;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+        }
+        /* Estilos específicos para el chat */
+        .message-user {
+            background-color: #A3B18A;
+            color: #FFFFFF;
+            align-self: flex-end;
+        }
+        .message-bot {
+            background-color: #EBF0E4;
+            color: #4A4A4A;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body class="bg-primary">
+
+    <header class="bg-secondary/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-accent">ZenBot</h1>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#concepto" class="nav-link font-medium">Concepto</a>
+                <a href="#mvp" class="nav-link font-medium">Funcionalidades</a>
+                <a href="#flujo" class="nav-link font-medium">Flujo Interactivo</a>
+                <a href="#futuro" class="nav-link font-medium">Visión a Futuro</a>
+            </div>
+            <div class="md:hidden">
+                <select id="mobile-nav" class="bg-white border border-gray-300 rounded-md p-2">
+                    <option value="#concepto">Concepto</option>
+                    <option value="#mvp">Funcionalidades</option>
+                    <option value="#flujo">Flujo Interactivo</option>
+                    <option value="#futuro">Visión a Futuro</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Sección de Bienvenida -->
+        <section class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">Proyecto: Chatbot de Bienestar y Mindfulness</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">Una aplicación interactiva que detalla el plan de desarrollo para un compañero digital diseñado para promover la calma y la atención plena en la vida diaria.</p>
+        </section>
+
+        <!-- Sección Concepto -->
+        <section id="concepto" class="mb-20 scroll-mt-20">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2">El Concepto Detrás de ZenBot</h3>
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Esta sección describe la misión fundamental del chatbot: el problema que busca resolver, sus objetivos principales y el público al que se dirige, sentando las bases de su propósito.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-3 text-accent">Problema a Resolver</h4>
+                    <p>Abordar el estrés diario, la falta de tiempo para el autocuidado y la necesidad de un espacio seguro para la expresión emocional, ofreciendo un respiro accesible en el mundo digital.</p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-3 text-accent">Objetivo Principal</h4>
+                    <p>Proporcionar un espacio amigable para que los usuarios practiquen mindfulness, gestionen el estrés y participen en conversaciones de apoyo, fomentando hábitos de bienestar.</p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-3 text-accent">Público Objetivo</h4>
+                    <p>Personas que buscan reducir la ansiedad, individuos interesados en la meditación, y cualquiera que necesite un momento para reflexionar, desde estudiantes a profesionales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Funcionalidades MVP -->
+        <section id="mvp" class="mb-20 scroll-mt-20">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2">Funcionalidades Mínimas Viables (MVP)</h3>
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">El MVP se centra en un conjunto de características esenciales que proporcionan valor inmediato. Haga clic en cada tarjeta para explorar las funcionalidades que formarán el núcleo de la experiencia del chatbot.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="mvp-grid">
+                <!-- Las tarjetas se generarán con JS -->
+            </div>
+        </section>
+
+        <!-- Sección Flujo de Conversación Interactivo -->
+        <section id="flujo" class="mb-20 scroll-mt-20">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2">Interactúa con ZenBot</h3>
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Esta es una simulación en vivo de la interacción con ZenBot. Escribe un mensaje en el campo de texto y presiona Enter o el botón "Enviar" para ver cómo responde el bot, demostrando el flujo de conversación en tiempo real.</p>
+            <div class="bg-secondary p-6 md:p-8 rounded-lg shadow-lg max-w-3xl mx-auto flex flex-col h-[600px]">
+                <div id="chat-window" class="flex-grow overflow-y-auto pr-4 pb-4 space-y-4">
+                    <!-- Los mensajes del chat se agregarán aquí -->
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200 flex items-center gap-2">
+                    <input type="text" id="user-input" placeholder="Escribe tu mensaje..." class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent">
+                    <button id="send-button" class="btn-accent px-5 py-3 rounded-lg font-semibold">Enviar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Visión a Futuro y Habilidades -->
+        <section id="futuro" class="scroll-mt-20">
+             <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6">Visión a Futuro</h3>
+                    <p class="text-gray-600 mb-6">Más allá del MVP, el proyecto tiene un gran potencial de crecimiento. Estas funcionalidades futuras enriquecerían la experiencia del usuario, haciendo el chatbot más personalizado e inteligente.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="text-accent font-bold mr-3">→</span><div><h5 class="font-semibold">Registro de Estado de Ánimo</h5><p class="text-sm text-gray-500">Permitiría al usuario seguir su evolución emocional a lo largo del tiempo.</p></div></li>
+                        <li class="flex items-start"><span class="text-accent font-bold mr-3">→</span><div><h5 class="font-semibold">Recordatorios Personalizados</h5><p class="text-sm text-gray-500">Para programar pausas de mindfulness y fomentar la constancia.</p></div></li>
+                        <li class="flex items-start"><span class="text-accent font-bold mr-3">→</span><div><h5 class="font-semibold">Contenido Adaptativo</h5><p class="text-sm text-gray-500">El bot aprendería de las interacciones para ofrecer sugerencias más relevantes.</p></div></li>
+                        <li class="flex items-start"><span class="text-accent font-bold mr-3">→</span><div><h5 class="font-semibold">Integración de Voz</h5><p class="text-sm text-gray-500">Para una experiencia de manos libres y más natural.</p></div></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6">Habilidades Demostradas</h3>
+                    <p class="text-gray-600 mb-6">Este proyecto es una vitrina de habilidades técnicas y de diseño clave, altamente demandadas en el desarrollo de software moderno y la inteligencia artificial.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">Procesamiento de Lenguaje Natural (NLP)</span>
+                        <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">Diseño de Conversación (UX/UI)</span>
+                        <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">Lógica de Programación</span>
+                        <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">Gestión de Datos</span>
+                        <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">Control de Versiones con Git</span>
+                        <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">Desarrollo Frontend (HTML, CSS, JS)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-secondary mt-20 border-t border-gray-200">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Plan de Proyecto ZenBot. Creado como demostración de portafolio.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Navegación ---
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.addEventListener('change', (e) => {
+                window.location.href = e.target.value;
+            });
+
+            // --- Funcionalidades MVP ---
+            const mvpData = [
+                { title: "Saludos y Despedidas", description: "Interacciones básicas para iniciar y finalizar la conversación de forma amigable y natural, creando una primera impresión positiva.", icon: "👋" },
+                { title: "Conversación Empática", description: "Capacidad para reconocer y responder a estados de ánimo del usuario (alegría, estrés, etc.) con frases de apoyo, creando un espacio seguro.", icon: "💬" },
+                { title: "Ejercicios de Respiración", description: "Guía paso a paso para ejercicios de respiración simples (ej. 4-7-8) para una relajación inmediata.", icon: "🌬️" },
+                { title: "Mini-Meditaciones Guiadas", description: "Meditaciones de 1-3 minutos sobre temas como gratitud o escaneo corporal para centrarse rápidamente.", icon: "🧘" },
+                { title: "Citas Inspiradoras", description: "Proporciona una afirmación positiva o una cita inspiradora a pedido del usuario para un impulso de ánimo.", icon: "✨" },
+                { title: "Menú de Opciones", description: "Un menú claro para que el usuario pueda navegar fácilmente y elegir la herramienta que necesita en cada momento.", icon: "📋" }
+            ];
+
+            const mvpGrid = document.getElementById('mvp-grid');
+            mvpData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card p-6 cursor-pointer';
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">${item.title}</h4>
+                            <p class="text-sm text-gray-600">${item.description}</p>
+                        </div>
+                        <span class="text-3xl ml-4">${item.icon}</span>
+                    </div>
+                `;
+                mvpGrid.appendChild(card);
+            });
+
+            // --- Simulación de Chat (Ahora interactiva con backend) ---
+            const chatWindow = document.getElementById('chat-window');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+
+            const BOT_API_URL = 'http://127.0.0.1:5000/chat'; // URL de tu API Flask
+
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `p-3 rounded-lg max-w-xs md:max-w-md ${sender === 'bot' ? 'message-bot' : 'message-user'}`;
+                messageDiv.innerHTML = text;
+                
+                const wrapper = document.createElement('div');
+                wrapper.className = `flex ${sender === 'bot' ? 'justify-start' : 'justify-end'}`;
+                wrapper.appendChild(messageDiv);
+
+                chatWindow.appendChild(wrapper);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            async function sendMessage() {
+                const message = userInput.value.trim();
+                if (message === '') return;
+
+                addMessage(message, 'user');
+                userInput.value = '';
+
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'flex justify-start';
+                typingIndicator.innerHTML = '<div class="p-3 rounded-lg message-bot">ZenBot está escribiendo...</div>';
+                chatWindow.appendChild(typingIndicator);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+
+                try {
+                    const response = await fetch(BOT_API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    chatWindow.removeChild(typingIndicator);
+                    addMessage(data.response.replace(/<br>/g, '\n'), 'bot');
+                } catch (error) {
+                    console.error('Error al comunicarse con el chatbot:', error);
+                    chatWindow.removeChild(typingIndicator);
+                    addMessage('Lo siento, no pude conectar con ZenBot en este momento. Por favor, asegúrate de que el servidor esté funcionando.', 'bot');
+                }
+            }
+
+            sendButton.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            addMessage("¡Hola! Soy ZenBot, tu compañero de bienestar. ¿En qué puedo ayudarte hoy?", 'bot');
+        });
+    </script>
+</body>
+</html>

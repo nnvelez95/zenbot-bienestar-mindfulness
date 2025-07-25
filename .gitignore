@@ -1,0 +1,12 @@
+# Entorno virtual de Python
+venv/
+*.pyc
+__pycache__/
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE (si usas VS Code, PyCharm, etc.)
+.vscode/
+.idea/

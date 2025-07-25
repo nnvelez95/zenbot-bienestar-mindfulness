@@ -1,0 +1,34 @@
+{
+  "intents": [
+    {
+      "tag": "saludo",
+      "patterns": ["hola", "buenos días", "buenas tardes", "buenas noches", "qué tal"],
+      "responses": ["¡Hola! Soy ZenBot, tu compañero de bienestar. ¿Cómo te sientes hoy?", "¡Hola! Estoy aquí para ayudarte a sentirte mejor. ¿En qué puedo asistirte?", "¿Qué tal? Soy ZenBot. ¿Cómo va tu día?"]
+    },
+    {
+      "tag": "despedida",
+      "patterns": ["adiós", "chao", "hasta luego", "nos vemos"],
+      "responses": ["¡Hasta pronto! Cuídate mucho.", "Adiós. Que tengas un excelente día.", "Nos vemos. Recuerda tomar un respiro si lo necesitas."]
+    },
+    {
+      "tag": "estado_estresado",
+      "patterns": ["me siento estresado", "estoy estresado", "muy estresado", "tengo estrés", "nervioso", "ansioso"],
+      "responses": ["Entiendo. A veces, solo necesitamos un momento para respirar. ¿Te gustaría probar un ejercicio de respiración guiado?", "Lo lamento. El estrés es común. ¿Quisieras un ejercicio para aliviarlo?", "El estrés puede ser abrumador. ¿Te apetece una pequeña pausa de mindfulness?"]
+    },
+    {
+      "tag": "ejercicio_respiracion_solicitud",
+      "patterns": ["sí, por favor", "quiero respirar", "ejercicio de respiración", "necesito respirar"],
+      "responses": ["Perfecto. Comencemos. Siéntate cómodamente...<br>1. Inhala por la nariz durante 4 segundos.<br>2. Sostén la respiración por 7 segundos.<br>3. Exhala lentamente por la boca durante 8 segundos.<br>Repite esto 3 veces. Te sentirás más tranquilo.", "¡Excelente elección! Busca un lugar tranquilo. Inhala en 4, sostén en 7, exhala en 8. Repite. Concentra tu mente en tu respiración."]
+    },
+    {
+      "tag": "agradecimiento",
+      "patterns": ["gracias", "muchas gracias", "te lo agradezco"],
+      "responses": ["De nada. Estoy aquí para lo que necesites.", "Es un placer ayudarte.", "¡Para eso estoy!"]
+    },
+    {
+      "tag": "pregunta_general",
+      "patterns": ["qué puedes hacer", "qué sabes hacer", "cuáles son tus funciones"],
+      "responses": ["Soy ZenBot, diseñado para ayudarte con tu bienestar. Puedo guiarte en ejercicios de respiración, mini-meditaciones, darte citas inspiradoras y ofrecerte consejos de mindfulness. También puedo simplemente charlar contigo.", "Estoy aquí para apoyarte en tu camino hacia el bienestar. Pregúntame sobre mindfulness, relajación o simplemente charlemos."]
+    }
+  ]
+}
