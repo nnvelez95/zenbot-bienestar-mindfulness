@@ -167,6 +167,8 @@ def get_response(user_input, intents, classifier_pipeline):
 # --- Configuración de Flask ---
 app = Flask(__name__)
 CORS(app)
+github_pages_origin = "https://nnvelez95.github.io/zenbot-bienestar-mindfulness"
+CORS(app, resources={r"/chat": {"origins": github_pages_origin}})
 
 @app.route('/chat', methods=['POST'])
 def chat():
