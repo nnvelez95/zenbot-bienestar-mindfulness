@@ -2,33 +2,93 @@
   "intents": [
     {
       "tag": "saludo",
-      "patterns": ["hola", "buenos días", "buenas tardes", "buenas noches", "qué tal"],
-      "responses": ["¡Hola! Soy ZenBot, tu compañero de bienestar. ¿Cómo te sientes hoy?", "¡Hola! Estoy aquí para ayudarte a sentirte mejor. ¿En qué puedo asistirte?", "¿Qué tal? Soy ZenBot. ¿Cómo va tu día?"]
+      "patterns": ["hola", "buenos días", "buenas tardes", "buenas noches", "qué tal", "que onda", "que hay", "hola zenbot", "saludos"],
+      "responses": [
+        "¡Hola! Soy ZenBot, tu compañero de bienestar. ¿Cómo te sientes hoy?",
+        "¡Hola! Estoy aquí para ayudarte a sentirte mejor. ¿En qué puedo asistirte?",
+        "¿Qué tal? Soy ZenBot. ¿Cómo va tu día? Espero que bien.",
+        "¡Qué alegría verte! Dime, ¿qué te trae por aquí hoy?",
+        "¡Saludos! Espero que estés teniendo un día tranquilo. ¿Necesitas un momento de calma?",
+        "¡Hola! Soy tu asistente de bienestar. ¿Hay algo en lo que pueda ayudarte ahora mismo?",
+        "¡Hola! ¿Buscas un momento de paz o necesitas charlar un rato?"
+      ]
     },
     {
       "tag": "despedida",
-      "patterns": ["adiós", "chao", "hasta luego", "nos vemos"],
-      "responses": ["¡Hasta pronto! Cuídate mucho.", "Adiós. Que tengas un excelente día.", "Nos vemos. Recuerda tomar un respiro si lo necesitas."]
+      "patterns": ["adiós", "chao", "hasta luego", "nos vemos", "me voy", "bye", "hasta pronto", "me despido"],
+      "responses": [
+        "¡Hasta pronto! Cuídate mucho y recuerda tomar un respiro si lo necesitas.",
+        "Adiós. Que tengas un excelente día y no dudes en volver cuando quieras.",
+        "Nos vemos. Recuerda que siempre estoy aquí para apoyarte.",
+        "¡Que te vaya muy bien! Espero verte de nuevo por aquí.",
+        "Ha sido un placer charlar contigo. ¡Hasta la próxima!",
+        "Adiós. Te deseo paz y bienestar."
+      ]
     },
     {
       "tag": "estado_estresado",
-      "patterns": ["me siento estresado", "estoy estresado", "muy estresado", "tengo estrés", "nervioso", "ansioso"],
-      "responses": ["Entiendo. A veces, solo necesitamos un momento para respirar. ¿Te gustaría probar un ejercicio de respiración guiado?", "Lo lamento. El estrés es común. ¿Quisieras un ejercicio para aliviarlo?", "El estrés puede ser abrumador. ¿Te apetece una pequeña pausa de mindfulness?"]
+      "patterns": ["me siento estresado", "estoy estresado", "muy estresado", "tengo estrés", "nervioso", "ansioso", "agobiado", "preocupado", "con mucha tensión", "me duele la cabeza del estrés"],
+      "responses": [
+        "Entiendo perfectamente. El estrés puede ser agotador. ¿Te gustaría que probemos un ejercicio de respiración para calmarte un poco?",
+        "Lo siento mucho. Sé lo abrumador que puede ser sentirse estresado. Estoy aquí para ayudarte a encontrar un poco de paz. ¿Hay algo específico que te preocupe?",
+        "El estrés es una respuesta natural, pero no tiene por qué dominarte. ¿Qué tal si hacemos una pequeña pausa y practicamos algo de mindfulness juntos?",
+        "Parece que estás pasando por un momento de tensión. Recuerda que no estás solo. A veces, un pequeño ejercicio puede hacer una gran diferencia. ¿Quieres intentar uno?",
+        "Comprendo que te sientas estresado. Es común en estos tiempos. ¿Te apetece una pequeña distracción o prefieres un ejercicio de relajación?",
+        "El estrés puede ser un peso. Estoy aquí para aligerar un poco esa carga. ¿Hay alguna herramienta que te interese para gestionarlo?"
+      ]
     },
     {
       "tag": "ejercicio_respiracion_solicitud",
-      "patterns": ["sí, por favor", "quiero respirar", "ejercicio de respiración", "necesito respirar"],
-      "responses": ["Perfecto. Comencemos. Siéntate cómodamente...<br>1. Inhala por la nariz durante 4 segundos.<br>2. Sostén la respiración por 7 segundos.<br>3. Exhala lentamente por la boca durante 8 segundos.<br>Repite esto 3 veces. Te sentirás más tranquilo.", "¡Excelente elección! Busca un lugar tranquilo. Inhala en 4, sostén en 7, exhala en 8. Repite. Concentra tu mente en tu respiración."]
+      "patterns": ["sí, por favor", "quiero respirar", "ejercicio de respiración", "necesito respirar", "dame un ejercicio", "respirar", "guiame para respirar"],
+      "responses": [
+        "Perfecto. Comencemos. Siéntate cómodamente en un lugar tranquilo.<br>1. Inhala por la nariz durante 4 segundos.<br>2. Sostén la respiración por 7 segundos.<br>3. Exhala lentamente por la boca durante 8 segundos.<br>Repite esto 3 veces, concentrando tu mente solo en tu respiración. ¿Cómo te sientes después de eso?",
+        "¡Excelente elección! Busca un lugar tranquilo. Inhala en 4, sostén en 7, exhala en 8. Repite tres veces y nota la calma. Tómate tu tiempo.",
+        "Vamos a ello. Encuentra una postura cómoda. Inhala suavemente por la nariz contando hasta 4. Retén el aire contando hasta 7. Exhala lentamente por la boca contando hasta 8. Repítelo un par de veces más. Avísame cómo te sientes al terminar.",
+        "Un ejercicio de respiración es una gran idea. Prepara tu espacio, inhala profundamente por la nariz por 4 segundos, mantén por 7, y exhala por la boca por 8. Puedes repetir este ciclo varias veces. Es muy efectivo para centrarse."
+      ]
     },
     {
       "tag": "agradecimiento",
-      "patterns": ["gracias", "muchas gracias", "te lo agradezco"],
-      "responses": ["De nada. Estoy aquí para lo que necesites.", "Es un placer ayudarte.", "¡Para eso estoy!"]
+      "patterns": ["gracias", "muchas gracias", "te lo agradezco", "mil gracias", "muy amable", "gracias zenbot"],
+      "responses": [
+        "De nada. Estoy aquí para lo que necesites, siempre que quieras.",
+        "Es un placer ayudarte. Me alegra haber sido útil.",
+        "¡Para eso estoy! No hay de qué.",
+        "Un placer. Si necesitas algo más, no dudes en preguntar.",
+        "Me alegra poder apoyarte. ¡Espero verte pronto!"
+      ]
     },
     {
       "tag": "pregunta_general",
-      "patterns": ["qué puedes hacer", "qué sabes hacer", "cuáles son tus funciones"],
-      "responses": ["Soy ZenBot, diseñado para ayudarte con tu bienestar. Puedo guiarte en ejercicios de respiración, mini-meditaciones, darte citas inspiradoras y ofrecerte consejos de mindfulness. También puedo simplemente charlar contigo.", "Estoy aquí para apoyarte en tu camino hacia el bienestar. Pregúntame sobre mindfulness, relajación o simplemente charlemos."]
+      "patterns": ["qué puedes hacer", "qué sabes hacer", "cuáles son tus funciones", "para qué sirves", "dime qué haces"],
+      "responses": [
+        "Soy ZenBot, diseñado para ayudarte con tu bienestar y mindfulness. Puedo guiarte en ejercicios de respiración, mini-meditaciones, darte citas inspiradoras y ofrecerte consejos de mindfulness. También puedo simplemente charlar contigo si lo necesitas.",
+        "Estoy aquí para apoyarte en tu camino hacia el bienestar. Pregúntame sobre mindfulness, relajación o simplemente charlemos. ¿Tienes alguna duda o te gustaría probar algo?",
+        "Mis funciones principales son ayudarte a relajarte, a practicar la atención plena y a gestionar el estrés. ¿Hay algo en particular que te gustaría explorar hoy?"
+      ]
+    },
+    {
+      "tag": "afirmacion",
+      "patterns": ["si", "sí", "claro", "por supuesto", "afirmativo", "ok", "vale", "dale"],
+      "responses": [
+        "Entendido. ¿Qué es lo próximo en lo que te gustaría trabajar?",
+        "De acuerdo. ¿Hay algo más en lo que pueda ayudarte?",
+        "Perfecto."
+      ]
+    },
+    {
+      "tag": "negacion",
+      "patterns": ["no", "no gracias", "paso", "negativo", "no quiero", "nada"],
+      "responses": [
+        "De acuerdo, no hay problema. ¿Hay algo más en lo que pueda ayudarte?",
+        "Entendido. ¿Quizás otra opción te interese?",
+        "Vale, no hay problema."
+      ]
     }
-  ]
+  ],
+  "version": "1.0",
+  "description": "Intents for ZenBot, a mindfulness and wellness chatbot.",
+  "author": "ZenBot Team",
+  "date_created": "2025-8-25",
+  "language": "es"
 }
