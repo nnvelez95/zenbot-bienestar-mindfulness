@@ -18,7 +18,8 @@ lemmatizer = WordNetLemmatizer()
 print("Descargando/Verificando datos de NLTK: punkt, wordnet, omw-1.4...")
 nltk.download('punkt', quiet=True) # quiet=True para menos mensajes en la consola
 nltk.download('wordnet', quiet=True)
-nltk.download('omw-1.4', quiet=True) # Open Multilingual Wordnet (para español)
+nltk.download('omw-1.4', quiet=True)# Open Multilingual Wordnet (para español)
+nltk.download('punkt_tab', quiet=True)
 print("Datos de NLTK listos.")
 
 def load_intents(file_path='intents.json'):
