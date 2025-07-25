@@ -87,7 +87,7 @@
     },
     {
       "tag": "conversacion_abierta",
-      "patterns": [
+      "patterns":[
         "háblame de filosofía",
         "qué piensas sobre la mente",
         "cuál es el sentido de la vida",
@@ -101,13 +101,31 @@
         "qué es la felicidad",
         "qué es el amor",
         "háblame de existencialismo",
-        "qué es el inconsciente"
+        "qué es el inconsciente",
+        "qué opinas de la existencia",
+        "quiero hablar de algo serio",
+        "qué sabes de la psique humana",
+        "cuéntame sobre la ética",
+        "qué es la moral",
+        "reflexionemos sobre la vida",
+        "tengo una duda existencial",
+        "qué es el bien y el mal",
+        "háblame de la condición humana",
+        "qué es el libre albedracio",
+        "qué es el subconsciente",
+        "cómo funciona la memoria",
+        "qué es la percepción",
+        "háblame de la inteligencia emocional",
+        "quiero entender mis sentimientos",
+        "qué es la empatía"
       ],
       "responses": [
         "¡Claro! Me encanta explorar temas profundos. ¿Sobre qué aspecto de la filosofía o la psicología te gustaría conversar?",
         "Estoy listo para una conversación significativa. ¿Qué idea o concepto te intriga hoy?",
         "Excelente. Los temas de la mente y la existencia son fascinantes. Dime, ¿qué tienes en mente?",
-        "Me parece una gran idea. ¿Por dónde te gustaría que empecemos nuestra reflexión?"
+        "Me parece una gran idea. ¿Por dónde te gustaría que empecemos nuestra reflexión?",
+        "Un tema fascinante. ¿Qué ángulo te gustaría que abordáramos?",
+        "Estoy aquí para explorar contigo. ¿Cuál es la pregunta que te ronda la cabeza?"
       ]
     },
     {
